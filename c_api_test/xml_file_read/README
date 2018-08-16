@@ -1,0 +1,8 @@
+This test code is reference by [http://www.xmlsoft.org/xmlreader.html].
+
+[Build]
+ make all
+
+[Command]
+./a.out [XML FILE]
+
