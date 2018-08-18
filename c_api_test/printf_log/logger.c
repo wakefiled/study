@@ -10,10 +10,18 @@
 
 #define LOG(a, x...)  LOG_API(a, __func__, __LINE__, x)
 
-#define ERROR(x...)   LOG(LOG_ERROR, x)
-#define WARN(x...)    LOG(LOG_WARN, x)
-#define INFO(x...)    LOG(LOG_INFO, x)
-#define DEBUG(x...)   LOG(LOG_DEBUG, x)
+#define ERROR(x...) \
+if(ENABLE_ERROR_LOG) { LOG(LOG_ERROR, x);}\
+else{}
+#define WARN(x...)  \
+if(ENABLE_WARN_LOG){  LOG(LOG_WARN, x);}\
+else{}
+#define INFO(x...)  \
+if(ENABLE_INFO_LOG){ LOG(LOG_INFO, x);}\
+else{}
+#define DEBUG(x...) \
+if(ENABLE_DEBUG_LOG){ LOG(LOG_DEBUG, x);}\
+else{}
 
 typedef enum
 {
@@ -34,26 +42,18 @@ void LOG_API (LOG_TYPE_e eType, const char * func, int line, const char * fmt, .
 
 	switch( eType )
 	{
-#if ENABLE_ERROR_LOG
 		case LOG_ERROR:
 			fprintf(stderr, "[%s:%d]%s\n", func, line ,buf);	
 			break;
-#endif
-#if ENABLE_WARN_LOG
 		case LOG_WARN:
 			fprintf(stderr, "[%s:%d]%s\n", func, line ,buf);	
 			break;
-#endif
-#if ENABLE_INFO_LOG
 		case LOG_INFO:
 			fprintf(stderr, "[%s:%d]%s\n", func, line ,buf);	
 			break;
-#endif
-#if ENABLE_DEBUG_LOG
 		case LOG_DEBUG:
 			fprintf(stderr, "[%s:%d]%s\n", func, line ,buf);	
 			break;
-#endif
 		default:
 			break;
 	}
