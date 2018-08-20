@@ -1,0 +1,8 @@
+This test code is reference by [https://developer.gnome.org/json-glib/stable/].
+
+[Build]
+ make all
+
+[Command]
+./a.out [JSON FILE]
+

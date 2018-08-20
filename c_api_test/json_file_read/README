@@ -1,0 +1,14 @@
+This test code is reference by [https://github.com/json-c/json-c].
+
+[Install]
+sudo apt-get install libjson-c-dev
+
+otherwise way.
+ - https://github.com/json-c/json-c
+
+[Build]
+ make all
+
+[Command]
+./a.out [XML FILE]
+
