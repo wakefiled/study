@@ -50,26 +50,22 @@ int main(int argc, char * argv[])
 	printf("[3]%d\n",json_object_get_type(pJsonTitleObject));
 	printf("[3]%s\n",json_object_get_string(pJsonTitleObject));
 
-	json_object_object_foreach(pJsonWidgetObject, test1, test2)
+	json_object_object_foreach(pJsonWindowObject, test1, test2)
 	{
-		if( strcmp(test1,"window") == 0 )
-		{
-			printf("[4] %s\n",json_object_get_string(test2));
-		}
-		else
-		{
-			printf("[5] %s\n",test1);
-			printf("[5] %s\n",json_object_get_string(test2));
-		}
+		printf("[5] %s\n",test1);
+		printf("[5] %s\n",json_object_get_string(test2));
 	}
 
-
-	iter  = json_object_iter_begin(pJsonWidgetObject);
-	itEnd = json_object_iter_end(pJsonWidgetObject);
+	iter  = json_object_iter_begin(pJsonWindowObject);
+	itEnd = json_object_iter_end(pJsonWindowObject);
 	while(!json_object_iter_equal(&iter, &itEnd))
 	{
+		json_object * temp = json_object_iter_peek_value(&iter);
 		printf("[6] %s\n", json_object_iter_peek_name(&iter));
-		printf("[6] %s\n", json_object_get_string(json_object_iter_peek_value(&iter)));
+		printf("[6] %s\n", json_object_get_string(temp));
+		printf("[6] %d\n", json_object_get_int(temp));
+		printf("[6] %d\n", json_object_get_boolean(temp));
+		printf("[6] %f\n", json_object_get_double(temp));
 		json_object_iter_next(&iter);
 	}
 

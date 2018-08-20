@@ -1,10 +1,12 @@
 This test code is reference by [https://github.com/json-c/json-c].
 
+1. https://www.w3schools.com/js/js_json_arrays.asp
+
 [Install]
 sudo apt-get install libjson-c-dev
 
 otherwise way.
- - https://github.com/json-c/json-c
+ - https://github.com/json-c/json-c.git
 
 [Build]
  make all
