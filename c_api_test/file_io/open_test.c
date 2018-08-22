@@ -10,18 +10,18 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+
 #define ROM_DEV0 "./test_rom_log0.txt"
 #define ROM_DEV1 "./test_rom_log1.txt"
 
-#define TMP_DEV0 "/tmp/test_ram_log0.txt"
-#define TMP_DEV1 "/tmp/test_ram_log1.txt"
+#define RAM_DEV0 "/tmp/test_ram_log0.txt"
+#define RAM_DEV1 "/tmp/test_ram_log1.txt"
 
-int main(void)
+long long fd_open_is_one (const char * szFileName)
 {
-	int fd_ROM_DEV = 0;
-	int fd_TMP_DEV = 0;
+	int fd_DEV = 0;
 	char data[129] = {0,};
-	struct timeval tv;  
+	struct timeval tv;
 	long long start,end;
 	int i = 0;
 
@@ -29,70 +29,59 @@ int main(void)
 
 	gettimeofday(&tv,NULL);
 	start = tv.tv_sec*1000LL + tv.tv_usec/1000;
-
-	fd_ROM_DEV = open(ROM_DEV0, O_WRONLY | O_CREAT,0644);
+	fd_DEV = open(szFileName, O_WRONLY | O_CREAT, 0644);
 	while(i < 10000)
 	{
-		write(fd_ROM_DEV, data, strlen(data));
+		write(fd_DEV, data, strlen(data));
 		i++;
 	}
-	close(fd_ROM_DEV);
+	close(fd_DEV);
 	gettimeofday(&tv,NULL);
 	end = tv.tv_sec*1000LL + tv.tv_usec/1000;
 
-	printf("test 01 [%lld ms]\n", end - start);
+	return (end-start);
+}
 
-	i=0;
+long long fd_open_are_n (const char * szFileName)
+{
+	int fd_DEV = 0;
+	char data[129] = {0,};
+	struct timeval tv;
+	long long start,end;
+	int i = 0;
+
+	memset(data,0xaa,128);
 
 	gettimeofday(&tv,NULL);
 	start = tv.tv_sec*1000LL + tv.tv_usec/1000;
-
 	while(i < 10000)
 	{
-		fd_ROM_DEV = open(ROM_DEV1, O_WRONLY | O_CREAT,0644);
-		write(fd_ROM_DEV, data, strlen(data));
+		fd_DEV = open(szFileName, O_WRONLY | O_CREAT, 0644);
+		write(fd_DEV, data, strlen(data));
 		i++;
-		close(fd_ROM_DEV);
+		close(fd_DEV);
 	}
 	gettimeofday(&tv,NULL);
 	end = tv.tv_sec*1000LL + tv.tv_usec/1000;
 
-	printf("test 02 [%lld ms]\n", end - start);
+	return (end-start);
+}
 
-	i = 0;
+int main(void)
+{
+	long long lldRunTime= 0;
 
-	gettimeofday(&tv,NULL);
-	start = tv.tv_sec*1000LL + tv.tv_usec/1000;
+	lldRunTime = fd_open_is_one(ROM_DEV0);	
+	printf("test 01 [%lld ms]\n", lldRunTime);
 
-	fd_ROM_DEV = open(TMP_DEV0, O_WRONLY | O_CREAT,0644);
-	while(i < 10000)
-	{
-		write(fd_ROM_DEV, data, strlen(data));
-		i++;
-	}
-	close(fd_ROM_DEV);
-	gettimeofday(&tv,NULL);
-	end = tv.tv_sec*1000LL + tv.tv_usec/1000;
+	lldRunTime = fd_open_are_n(ROM_DEV1);
+	printf("test 02 [%lld ms]\n", lldRunTime);
 
-	printf("test 03 [%lld ms]\n", end - start);
+	lldRunTime = fd_open_is_one(RAM_DEV0);
+	printf("test 03 [%lld ms]\n", lldRunTime);
 
-	i=0;
-
-	gettimeofday(&tv,NULL);
-	start = tv.tv_sec*1000LL + tv.tv_usec/1000;
-
-	while(i < 10000)
-	{
-		fd_ROM_DEV = open(TMP_DEV1, O_WRONLY | O_CREAT,0644);
-		write(fd_ROM_DEV, data, strlen(data));
-		i++;
-		close(fd_ROM_DEV);
-	}
-	gettimeofday(&tv,NULL);
-	end = tv.tv_sec*1000LL + tv.tv_usec/1000;
-
-	printf("test 04 [%lld ms]\n", end - start);
-
+	lldRunTime = fd_open_are_n(RAM_DEV1);
+	printf("test 04 [%lld ms]\n", lldRunTime);
 
 	return 0;
 }

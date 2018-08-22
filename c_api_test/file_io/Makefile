@@ -9,3 +9,7 @@ open_test: open_test.c
 
 fopen_test: fopen_test.c
 	$(CC) $< -o $@
+
+clean:
+	./clean.sh
+	rm fopen_test open_test
