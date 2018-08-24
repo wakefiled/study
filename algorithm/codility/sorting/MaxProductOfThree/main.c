@@ -58,11 +58,11 @@ void quick_sort(int A[], int left, int right)
 
 int main(void)
 {
-//	int A[8] = {1,2,3,4,5,-100,-200,4};
 	int A[8] = {6,4,-1,3,500,-4,6,1};
+	int N = 8;
 	int result = 0;
 
-	result = solution(A,8);
+	result = solution(A,N);
 	printf("%d\n", result);
 }
 

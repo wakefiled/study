@@ -22,3 +22,13 @@ int solution(int A[], int N) {
     
     return cnt;
 }
+
+int main(void)
+{
+	int A[8] = {6,4,-1,3,500,-4,6,1};
+	int N = 8;
+	int result = 0;
+
+	result = solution(A,N);
+	printf("%d\n", result);
+}
