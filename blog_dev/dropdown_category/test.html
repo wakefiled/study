@@ -1,0 +1,124 @@
+
+<html>
+
+<style>
+body{
+  background-color: gray;
+}
+</style>
+
+<head>
+</head>
+
+<style>
+  .wakefiled-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  .wakefiled-list.title {
+    font-size: 24px;
+    float: left;
+  }
+  
+  .wakefiled-list.title a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+
+  .wakefiled-list.li-tag {
+    font-size: 24px;
+    float: left;
+  }
+
+  .wakefiled-list.li-tag a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+
+  .wakefiled-list.li-tag a:hover{
+    background-color: #111111;
+  }
+
+  .wakefiled-list.dropdown{
+    display: inline-block;
+    float:left;
+  }
+
+  .wakefiled-list.dropbtn {
+    font-size: 24px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+
+  .wakefiled-list.dropbtn:hover{
+    background-color: #111111;
+  }
+
+  .wakefiled-list.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .wakefiled-list.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .wakefiled-list.dropdown-content a:hover {
+    background-color: #f1f1f1
+  }
+
+  .dropdown:hover .wakefiled-list.dropdown-content {
+    display: block;
+  }
+
+</style>
+
+<ul class="wakefiled-ul">
+  <li class="wakefiled-list title">
+    <a class="wakefiled-list" href="#">제팡이's</a>
+  </li>    
+  <li class="wakefiled-list dropdown">
+    <a class="wakefiled-list dropbtn" href="javascript:void(0)">개발</a>
+    <div class="wakefiled-list dropdown-content">
+      <a href="http://wakefiled.blogspot.com/search/label/C">C/C++</a>
+      <a href="http://wakefiled.blogspot.com/search/label/Algorithm">알고리즘</a>
+      <a href="http://wakefiled.blogspot.com/search/label/Opensource">오픈소스</a>
+      <a href="http://wakefiled.blogspot.com/search/label/DevProcess">개발이론</a>
+    </div>
+  </li>
+  <li class="wakefiled-list li-tag">
+    <a class="wakefiled-list" href="http://wakefiled.blogspot.com/search/label/System">시스템</a>
+  </li>
+  <li class="wakefiled-list li-tag">
+    <a class="wakefiled-list" href="http://wakefiled.blogspot.com/search/label/News">IT소식</a>
+  </li>
+  <li class="wakefiled-list li-tag">
+    <a class="wakefiled-list" href="http://wakefiled.blogspot.com/search/label/Life">일상</a>
+  </li>
+</ul>
+
+<body>
+</body>
+
+</html>
