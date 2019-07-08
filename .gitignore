@@ -1,3 +1,4 @@
 *.o
 *.out
 *.i
+node_modules
