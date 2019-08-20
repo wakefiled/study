@@ -5,20 +5,18 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
+    <p id="result"></p>
     <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <h id="test"> test</h>
     <video id="player" controls autoplay></video>
     <button id="capture">Capture</button>
     <button id="save">Save</button>
-    <canvas id="snapshot" width=1920 height=1080></canvas>
-    <img id="result" width=1920 height=1080></img>
+<!--    <canvas id="snapshot" width=1920 height=1080></canvas>
+    <img id="result" width=1920 height=1080></img>-->
+    <canvas id="snapshot" width="1920" height="1080"></canvas>
+    <img id="capture_img" width=70% height=70%></img>
     <script>
       var player = document.getElementById('player');
       var snapshotCanvas = document.getElementById('snapshot');
@@ -28,13 +26,17 @@
       var handleSuccess = function(stream) {
         // Attach the video stream to the video element and autoplay.
         player.srcObject = stream;
+        player.width = 1080;
+        player.height = 720;
       };
 
       captureButton.addEventListener('click', function() {
           var context = snapshot.getContext('2d');
           // Draw the video frame to the canvas.
-          context.drawImage(player, 0, 0, snapshotCanvas.width,
-               snapshotCanvas.height);
+          context.drawImage(player, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
+          snapshotCanvas.style.display='none';
+
+          document.getElementById('capture_img').src = snapshotCanvas.toDataURL("image/png")
       });
 
       saveButton.addEventListener('click', function() {
@@ -42,20 +44,20 @@
           //saveATag.href = snapshotCanvas.toDataURL("image/png");
           //saveATag.download = 'jskim8.png'
           console.log('test');
-          const axios = require('axios');
-          axios.post('http://127.0.0.1:9000',{
+          //const axios = require('axios');
+          axios.post('http://192.168.10.36:8080/jetson/cls/result',{
             fileName:'jskim8.png',
             img: snapshotCanvas.toDataURL("image/png")
           })
           .then(function(response){
-            document.getElementById('result').src = response.data;
+            document.getElementById('result').innerHTML = response.data;
           })
           .catch(function(error){
             console.log(error);
           });
       });
 
-      navigator.mediaDevices.getUserMedia({video: true}).then(handleSuccess);
+      navigator.mediaDevices.getUserMedia({video: {width:1280, height:720}}).then(handleSuccess);
 </script>
 
   </body>
